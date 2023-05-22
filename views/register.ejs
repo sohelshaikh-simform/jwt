@@ -1,0 +1,30 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <%= typeof msg != 'undefined' ? msg : '' %>
+    <div class="container">
+
+        <div class="form">
+
+        <form action="/register" method="POST">
+            <h2>Register</h2>
+            <div class="input-field">
+                <input type="text" name="username" id="username" placeholder="Enter Username">
+            </div>
+            <div class="input-field">
+                <input type="email" name="email" id="email" placeholder="Enter email">
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" id="password" placeholder="Enter Password">
+            </div>
+            <input type="submit" value="signup">
+        </form>
+    </div>
+    <div class="login">
+        <a href="/login">login</a>
+    </div>
+</div>
+</body>
+</html>

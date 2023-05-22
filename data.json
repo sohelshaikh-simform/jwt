@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "username": "abc",
+      "password": "abc",
+      "email": "abc.gmail.com"
+    },
+    {
+      "username": "def",
+      "password": "def"
+    }
+  ]
+}
