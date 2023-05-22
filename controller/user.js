@@ -2,8 +2,7 @@
 const userModel=require("../models/user")
 const jwt=require("jsonwebtoken")
 const bcrypt=require("bcrypt");
-// const session = require("express-session");
-
+require('dotenv').config()
 
 const register= async (req,res)=>{
     try{
@@ -20,7 +19,7 @@ const register= async (req,res)=>{
             password: hasPassword
         })
         console.log(newUser);
-        const token=jwt.sign({email:newUser.email,id:newUser._id},"secretkey")
+        const token=jwt.sign({email:newUser.email,id:newUser._id},process.env.Secretkey)
         res.cookie('token',token);
         res.redirect('/login')
     }
@@ -41,7 +40,7 @@ const login=async (req,res)=>{
         if(!matchPassword){
             return res.status(400).json({message:"Invalid Credential"});
         }
-        token=jwt.sign({email:existUser.email,id:existUser._id},"secretkey")
+        token=jwt.sign({email:existUser.email,id:existUser._id},process.env.Secretkey)
         session=req.session;
         session.tokenLogin=token
         return res.render('auth')
@@ -57,4 +56,5 @@ const getData=(req,res)=>{
     console.log(req.userId);
     res.status(200).json({message:"Sucees",id:req.userId})
 }
+
 module.exports={register,login,getData}

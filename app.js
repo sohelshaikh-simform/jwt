@@ -7,39 +7,36 @@ const { default: mongoose } = require("mongoose");
 const ejs = require("ejs");
 const userRouter = require("./route/user");
 const path = require("path");
-const cookieParser=require('cookie-parser');
-const session=require('express-session');
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const helmet=require('helmet')
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(helmet())
 app.use(
   session({
-    secret: "123$#S",
+    secret: process.env.Secretsessoin,
     saveUninitialized: true,
     cookie: { maxAge: 1000 * 60 * 60 },
     resave: false,
   })
-  );
-  dotenv.config();
-  // app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use("/", userRouter);
+);
+
+dotenv.config();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/", userRouter);
 
 app.get("/", (req, res) => {
   res.render("register");
 });
+
 app.get("/login", (req, res) => {
   res.render("login");
 });
 
-// app.post("/register", (req, res) => {
-//   session = req.session;
-//   if (session) {
-//     res.send("Welcome User <a href='/logout'>click to logout</a>");
-//   } else res.sendFile("public/index.html", { root: __dirname });
-// });
 mongoose
   .connect("mongodb://localhost:27017/shdummy", {
     useNewUrlParser: true,
